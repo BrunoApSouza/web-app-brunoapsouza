@@ -24,6 +24,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      # Exemplo de execução de testes, ajuste conforme necessário
       - name: Run tests
         run: npm test
 
@@ -43,10 +44,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Deploy to Heroku
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          npm install -g heroku
-          heroku git:remote -a <YOUR_HEROKU_APP_NAME>
-          git push heroku main
+      # Aqui você deve ajustar para o seu script de build
+      - name: Build
+        run: npm run build
+
+      # Deploy para GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}  # Ajuste aqui para o nome correto do seu segredo
+          publish_dir: ./  # Ajuste conforme necessário, se o seu build estiver em um diretório diferente
