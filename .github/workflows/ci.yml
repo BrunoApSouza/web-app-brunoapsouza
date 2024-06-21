@@ -53,4 +53,8 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}  # Ajuste aqui para o nome correto do seu segredo
+<<<<<<< HEAD
           publish_dir: ./  # Ajuste conforme necessário, se o seu build estiver em um diretório diferente
+=======
+          publish_dir: ./  # Ajuste conforme necessário, se o seu build estiver em um diretório diferente
+>>>>>>> 79f9c6c98d7aeec0e24ed63a8880b890fbadcfb0
