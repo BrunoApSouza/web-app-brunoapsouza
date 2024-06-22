@@ -3,10 +3,10 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main
+      - main  # Mude para o nome do seu branch principal
   pull_request:
     branches:
-      - main
+      - main  # Mude para o nome do seu branch principal
 
 jobs:
   build:
@@ -19,14 +19,17 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '14'  # Versão do Node.js que você está usando
 
       - name: Install dependencies
         run: npm install
 
-      # Exemplo de execução de testes, ajuste conforme necessário
-      - name: Run tests
-        run: npm test
+      - name: Build
+        run: npm run build  # Certifique-se de que seu script de build está configurado corretamente no package.json
+
+      # Opcional: se você tiver testes automatizados, você pode adicioná-los aqui
+      # - name: Run tests
+      #   run: npm test
 
   deploy:
     runs-on: ubuntu-latest
@@ -36,25 +39,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-      - name: Install dependencies
-        run: npm install
-
-      # Aqui você deve ajustar para o seu script de build
-      - name: Build
-        run: npm run build
-
-      # Deploy para GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}  # Ajuste aqui para o nome correto do seu segredo
-<<<<<<< HEAD
-          publish_dir: ./  # Ajuste conforme necessário, se o seu build estiver em um diretório diferente
-=======
-          publish_dir: ./  # Ajuste conforme necessário, se o seu build estiver em um diretório diferente
->>>>>>> 79f9c6c98d7aeec0e24ed63a8880b890fbadcfb0
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build  # Diretório de build do seu projeto
+          publish_branch: gh-pages  # Branch onde a GitHub Pages está configurada
+          cname: example.com  # Opcional: domínio customizado para sua página
+
