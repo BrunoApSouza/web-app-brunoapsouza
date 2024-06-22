@@ -1,13 +1,17 @@
-name: Deploy to GitHub Pages
+name: CI/CD Pipeline
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -20,11 +24,33 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build
-        run: npm run build  # Certifique-se de que o comando build está correto
+      # Exemplo de execução de testes, ajuste conforme necessário
+      - name: Run tests
+        run: npm test
 
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      # Aqui você deve ajustar para o seu script de build
+      - name: Build
+        run: npm run build
+
+      # Deploy para GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ PERSONAL_ACCESS_TOKEN }}
-          publish_dir: ./  # Substitua pelo diretório onde seu build está localizado, se necessário
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}  # Ajuste aqui para o nome correto do seu segredo
+          publish_dir: ./  # Ajuste conforme necessário, se o seu build estiver em um diretório diferente
