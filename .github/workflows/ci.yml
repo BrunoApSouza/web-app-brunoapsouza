@@ -32,8 +32,8 @@ jobs:
       - name: Run tests
         run: npm test
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        publish_dir: ./
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+         github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+         publish_dir: ./
