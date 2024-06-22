@@ -21,10 +21,10 @@ jobs:
         run: npm install
 
       - name: Build
-        run: npm run build  # Substitua pelo comando para construir seu aplicativo
+        run: npm run build  # Certifique-se de que o comando build está correto
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build  # Substitua pelo diretório onde seu build está localizado
+          publish_dir: ./  # Substitua pelo diretório onde seu build está localizado, se necessário
