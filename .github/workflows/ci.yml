@@ -1,49 +1,41 @@
-name: CI/CD Pipeline
+name: Node.js CI
 
 on:
   push:
     branches:
-      - main  # Mude para o nome do seu branch principal
-  pull_request:
-    branches:
-      - main  # Mude para o nome do seu branch principal
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'  # Versão do Node.js que você está usando
+          node-version: '14'
 
       - name: Install dependencies
         run: npm install
 
       - name: Build
-        run: npm run build  # Certifique-se de que seu script de build está configurado corretamente no package.json
+        run: npm run build
 
-      # Opcional: se você tiver testes automatizados, você pode adicioná-los aqui
-      # - name: Run tests
-      #   run: npm test
+      - name: Start server
+        run: |
+          npm start &
+          echo "Server started"
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Run tests
+        run: npm test
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          publish_dir: ./build  # Diretório de build do seu projeto
-          publish_branch: gh-pages  # Branch onde a GitHub Pages está configurada
-          cname: example.com  # Opcional: domínio customizado para sua página
-
+        if: success()
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "GitHub Actions"
+          npm install -g gh-pages
+          npm run deploy
