@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build": "npm run build",
+    "build": "your-build-command-here", // Substitua pelo seu comando de build real
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
