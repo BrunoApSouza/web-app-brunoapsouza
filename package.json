@@ -1,11 +1,11 @@
 {
   "name": "web-app-brunoapsouza",
   "version": "1.0.0",
-  "description": "",
+  "description": "Aplicação web para Bruno ApSouza",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build": "npm run build",  // Adicione este script de build
+    "build": "npm run build", 
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
