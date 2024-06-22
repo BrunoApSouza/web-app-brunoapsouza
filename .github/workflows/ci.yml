@@ -45,9 +45,9 @@ jobs:
         run: npm install
 
       - name: Deploy to Heroku
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          npm install -g heroku
-          heroku git:remote -a <HEROKU_API_KEY>
-          git push heroku main
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: HEROKU_API_KEY  # Substitua pelo nome real do seu app no Heroku
+          heroku_email: brunoap500@gmail.com  # Substitua pelo seu email do Heroku
+          branch: main
